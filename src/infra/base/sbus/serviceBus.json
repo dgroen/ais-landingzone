@@ -58,16 +58,7 @@
                 "subnet": {
                     "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('vnet').name, parameters('vnet').privateLink.name)]"
                 },
-                "customNetworkInterfaceName": "[variables('pepNicName')]",
-                "privateLinkServiceConnections": [
-                    {
-                        "name": "[variables('pepName')]",
-                        "properties": {
-                            "privateLinkServiceId": "[resourceId('Microsoft.ServiceBus/namespaces',parameters('serviceBus').name)]",
-                            "groupIds": [ "namespace" ]
-                        }
-                    }
-                ]
+                "customNetworkInterfaceName": "[variables('pepNicName')]"
             },
             "tags": {},
             "dependsOn": [

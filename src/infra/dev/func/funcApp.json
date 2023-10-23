@@ -32,7 +32,7 @@
             "apiVersion": "2022-09-01",
             "sku": {
                 "name": "Y1",
-                "tier": "Dynamic",
+                "tier": "Basic",
                 "size": "Y1",
                 "family": "Y",
                 "capacity": 0

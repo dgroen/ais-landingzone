@@ -37,7 +37,7 @@
                 "family": "Y",
                 "capacity": 0
             },
-            "kind": "ASE",
+            "kind": "functionapp",
             "properties": {
                 "perSiteScaling": false,
                 "elasticScaleEnabled": false,

@@ -429,7 +429,7 @@
                 "zoneRedundant": false
             },
             "sku": {
-                "Tier": "WorkflowStandard",
+                "Tier": "Consumption",
                 "Name": "WS1"
             }
         },

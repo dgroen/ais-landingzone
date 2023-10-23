@@ -23,3 +23,4 @@
     $ cd deploy
     $ az deployment group create --resource-group rg-ais-<env>-001 --template-file deploy_ais_lz_<env>.json
 
+az deployment group create --resource-group rg-ais-connectivity --template-file deploy_ais_connectivity_lz.json

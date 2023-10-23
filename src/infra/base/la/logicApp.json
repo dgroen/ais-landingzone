@@ -415,7 +415,7 @@
         {
             "apiVersion": "2018-11-01",
             "name": "[variables('hostingPlanName')]",
-            "type": "Microsoft.Logic/workflows",
+            "type": "Microsoft.Web/serverfarms",
             "location": "[parameters('platform').region]",
             "kind": "",
             "tags": {"application": "AIS"},

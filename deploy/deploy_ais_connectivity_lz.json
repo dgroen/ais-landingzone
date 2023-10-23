@@ -268,12 +268,13 @@
                         "value": "[variables('appInsights')]"
                     }
                 }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
-                "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
-            ]
+            }
+            // ,
+            // "dependsOn": [
+            //     "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
+            //     "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
+            //     "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
+            // ]
         },        
 
        

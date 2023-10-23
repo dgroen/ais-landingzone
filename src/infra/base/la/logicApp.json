@@ -415,18 +415,27 @@
         {
             "apiVersion": "2018-11-01",
             "name": "[variables('hostingPlanName')]",
-            "type": "Microsoft.Web/serverfarms",
+            "type": "Microsoft.Logic/workflows",
             "location": "[parameters('platform').region]",
             "kind": "",
-            "tags": {},
+            "tags": {"application": "AIS"},
+            "logicAppState": {
+                "type": "string",
+                "defaultValue": "Enabled"
+            },
+            "definition": {
+                "type": "string",
+                "defaultValue": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', parameters('workflowSchema'), '\"}')]"
+            },
+            "parameters": {
+                "type": "object",
+                "defaultValue": {}
+            },            
             "dependsOn": [],
             "properties": {
-                "name": "[variables('hostingPlanName')]",
-                "workerSize": "3",
-                "workerSizeId": "3",
-                "numberOfWorkers": "1",
-                "maximumElasticWorkerCount": "20",
-                "zoneRedundant": false
+                "definition": "[json(parameters('definition'))]",
+                "parameters": "[parameters('parameters')]",
+                "state": "[parameters('logicAppState')]"
             },
             "sku": {
                 "Tier": "Consumption",

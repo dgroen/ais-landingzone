@@ -74,7 +74,7 @@
 
         // Makes it possible for people to local changes, execute the deployment from local files - but still keep the templateLink property / external template feature working
         // "srcUri": "https://raw.githubusercontent.com/Azure/Integration-Services-Landing-Zone-Accelerator/main/src/infra/scenario1/",
-        "srcUri": "https://raw.githubusercontent.com/dgroen/ais-landingzone/",
+        "srcUri": "https://raw.githubusercontent.com/dgroen/ais-landingzone/dev/src/infra/base/",
         "platform": {
             "systemPrefix": "[parameters('systemPrefix')]",
             "environment": "[parameters('environment')]",
@@ -205,6 +205,43 @@
             }
         },
         
+     
+        // Logic Apps
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-logicapp",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'la/logicApp.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "storage": {
+                        "value": "[variables('storage')]"
+                    },
+                    "logicApp": {
+                        "value": "[variables('logicApp')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
+            ]
+        },
+
+       
         // log analytics
         {
             "type": "Microsoft.Resources/deployments",

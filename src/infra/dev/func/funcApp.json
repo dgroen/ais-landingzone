@@ -24,22 +24,24 @@
         "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
     },
     "resources": [
-        // Plan
+         // Plan
         {
             "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2022-03-01",
             "name": "[variables('hostingPlanName')]",
             "location": "[resourceGroup().location]",
+            "apiVersion": "2022-09-01",
             "sku": {
-                "name": "EP1",
-                "tier": "ElasticPremium",
-                "family": "EP"
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
             },
-            "kind": "elastic",
+            "kind": "functionapp",
             "properties": {
                 "perSiteScaling": false,
-                "elasticScaleEnabled": true,
-                "maximumElasticWorkerCount": 20,
+                "elasticScaleEnabled": false,
+                "maximumElasticWorkerCount": 1,
                 "isSpot": false,
                 "reserved": false,
                 "isXenon": false,
@@ -47,7 +49,6 @@
                 "targetWorkerCount": 0,
                 "targetWorkerSizeId": 0,
                 "zoneRedundant": false
-
             }
         },
         // Function App

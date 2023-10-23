@@ -19,72 +19,72 @@
         },
         "vnetAddressSpace": {
             "type": "string",
-            "defaultValue": "10.0.0.0/16",
+            "defaultValue": "192.168.0.0/16",
             "metadata": {
                 "description": "CIDR prefix for the VNet address space."
             }
         },
         "frontEndSubnet": {
             "type": "string",
-            "defaultValue": "10.0.1.0/24",
+            "defaultValue": "192.168.1.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the front end subnet."
             }
         },
         "backEndSubnet": {
             "type": "string",
-            "defaultValue": "10.0.2.0/24",
+            "defaultValue": "192.168.2.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the back end subnet."
             }
         },
         "privateLinkSubnet": {
             "type": "string",
-            "defaultValue": "10.0.10.0/24",
+            "defaultValue": "192.168.10.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the private link."
             }
         },
         "VMSubnet": {
             "type": "string",
-            "defaultValue": "10.0.20.0/24",
+            "defaultValue": "192.168.20.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the IaaS VM's."
             }
         },
         "apimAdminEmail": {
             "type": "string",
-            "defaultValue": "dgroen@virtualsciences.nl",
+            "defaultValue": "admin@domain.com",
             "metadata": {
                 "description": "API Mangement Administrator Email"
             }
         },
         "apimOrganisation": {
             "type": "string",
-            "defaultValue": "Conclusion Virtual Sciences",
+            "defaultValue": "Organisation",
             "metadata": {
-                "description": "API Mangement Organisation Name"
+                "description": "API Mangement Organsiation Name"
             }
         }
     },
 
     "variables": {
         // Will reference the standard templates when using the "Deploy to Azure" button directly form the repository
-        // "srcUri": "[deployment().properties.templateLink.uri]",
+        "srcUri": "[deployment().properties.templateLink.uri]",
 
         // Makes it possible for people to local changes, execute the deployment from local files - but still keep the templateLink property / external template feature working
         // "srcUri": "https://raw.githubusercontent.com/Azure/Integration-Services-Landing-Zone-Accelerator/main/src/infra/scenario1/",
-        "srcUri": "https://raw.githubusercontent.com/dgroen/ais-landingzone/dev/src/infra/dev/",
+
         "platform": {
             "systemPrefix": "[parameters('systemPrefix')]",
             "environment": "[parameters('environment')]",
             "region": "[resourceGroup().location]"
         },
 
-        "nameSuffix": "[concat('-',parameters('systemPrefix'),'-',parameters('environment'),'-',variables('platform').region)]",
+        "nameSuffix": "[concat('-',parameters('systemPrefix'),'-',parameters('environment'),'-',variables('platform').region,'-01')]",
 
         "storage": {
-            "name": "[concat('st',variables('platform').systemPrefix, variables('platform').environment)]"
+            "name": "[concat('stg',variables('platform').systemPrefix, variables('platform').environment,uniqueString(resourceGroup().id))]"
         },
 
         "logicApp": {
@@ -99,7 +99,7 @@
         },
 
         "keyVault": {
-            "name": "[concat('kv',variables('platform').systemPrefix,variables('platform').environment)]",
+            "name": "[concat('kv',variables('platform').systemPrefix,variables('platform').environment,uniqueString(resourceGroup().id))]",
             "sku": "Standard"
         },
 
@@ -123,7 +123,7 @@
 
         "serviceBus": {
             "name": "[concat('sbus',variables('nameSuffix'))]",
-            "sku": "Standard"
+            "sku": "Premium"
         },
 
 
@@ -131,21 +131,21 @@
             "name": "[concat('vnet',variables('nameSuffix'))]",
             "address": "[parameters('vnetAddressSpace')]",
             "frontEnd": {
-                "name": "[concat('snet-',parameters('systemPrefix'),'-frontend-',parameters('environment'),'-',variables('platform').region)]",
-                "nsg": "[concat('nsg-',parameters('systemPrefix'),'-frontend-',parameters('environment'),'-',variables('platform').region)]",
+                "name": "[concat('snet-',parameters('systemPrefix'),'-frontend-',parameters('environment'),'-',variables('platform').region,'-01')]",
+                "nsg": "[concat('nsg-',parameters('systemPrefix'),'-frontend-',parameters('environment'),'-',variables('platform').region,'-01')]",
                 "address": "[parameters('frontEndSubnet')]"
             },
             "backEnd": {
-                "name": "[concat('snet-',parameters('systemPrefix'),'-backend-',parameters('environment'),'-',variables('platform').region)]",
-                "nsg": "[concat('nsg-',parameters('systemPrefix'),'-backend-',parameters('environment'),'-',variables('platform').region)]",
+                "name": "[concat('snet-',parameters('systemPrefix'),'-backend-',parameters('environment'),'-',variables('platform').region,'-01')]",
+                "nsg": "[concat('nsg-',parameters('systemPrefix'),'-backend-',parameters('environment'),'-',variables('platform').region,'-01')]",
                 "address": "[parameters('backEndSubnet')]"
             },
             "privateLink": {
-                "name": "[concat('snet-',parameters('systemPrefix'),'-privatelink-',parameters('environment'),'-',variables('platform').region)]",
+                "name": "[concat('snet-',parameters('systemPrefix'),'-privatelink-',parameters('environment'),'-',variables('platform').region,'-01')]",
                 "address": "[parameters('privateLinkSubnet')]"
             },
             "VM": {
-                "name": "[concat('snet-',parameters('systemPrefix'),'-vm-',parameters('environment'),'-',variables('platform').region)]",
+                "name": "[concat('snet-',parameters('systemPrefix'),'-vm-',parameters('environment'),'-',variables('platform').region,'-01')]",
                 "address": "[parameters('VMSubnet')]"
             }
         }
@@ -160,7 +160,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-keyvault",
+            "name": "caf-ais-keyvault",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -180,7 +180,7 @@
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]"
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]"
             ]
         },
 
@@ -188,7 +188,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-vnet",
+            "name": "caf-ais-vnet",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -205,12 +205,39 @@
             }
         },
         
-     
+        // Service Bus
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "caf-ais-servicebus",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'sbus/serviceBus.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "serviceBus": {
+                        "value": "[variables('serviceBus')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]"
+            ]
+        },
+
         // Logic Apps
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-logicapp",
+            "name": "caf-ais-logicapp",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -236,15 +263,16 @@
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-app-insights')]"
             ]
         },
- // Function  Apps
+
+        // Function  Apps
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-funcapp",
+            "name": "caf-ais-funcapp",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -270,18 +298,83 @@
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
-                "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-app-insights')]",
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-logicapp')]"
             ]
-        },        
+        },
 
-       
+        // Data Factory
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "caf-ais-dataFactory",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'df/dataFactory.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "storage": {
+                        "value": "[variables('storage')]"
+                    },
+                    "dataFactory": {
+                        "value": "[variables('dataFactory')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-app-insights')]"
+
+            ]
+        },
+
+
+        // apim
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "caf-ais-apim",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'apim/template.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "apim": {
+                        "value": "[variables('apim')]"
+                    }
+
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-vnet')]"
+            ]
+        },
+
         // log analytics
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-log-analytics",
+            "name": "caf-ais-log-analytics",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -307,7 +400,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-app-insights",
+            "name": "caf-ais-app-insights",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -332,7 +425,7 @@
 
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'ais-log-analytics')]"
+                "[resourceId('Microsoft.Resources/deployments', 'caf-ais-log-analytics')]"
             ]
 
         }

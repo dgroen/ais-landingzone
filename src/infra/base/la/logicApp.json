@@ -418,24 +418,15 @@
             "type": "Microsoft.Web/serverfarms",
             "location": "[parameters('platform').region]",
             "kind": "",
-            "tags": {"application": "AIS"},
-            "logicAppState": {
-                "type": "string",
-                "defaultValue": "Enabled"
-            },
-            "definition": {
-                "type": "string",
-                "defaultValue": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', parameters('workflowSchema'), '\"}')]"
-            },
-            "parameters": {
-                "type": "object",
-                "defaultValue": {}
-            },            
+            "tags": {},
             "dependsOn": [],
             "properties": {
-                "definition": "[json(parameters('definition'))]",
-                "parameters": "[parameters('parameters')]",
-                "state": "[parameters('logicAppState')]"
+                "name": "[variables('hostingPlanName')]",
+                "workerSize": "3",
+                "workerSizeId": "3",
+                "numberOfWorkers": "1",
+                "maximumElasticWorkerCount": "20",
+                "zoneRedundant": false
             },
             "sku": {
                 "Tier": "Consumption",

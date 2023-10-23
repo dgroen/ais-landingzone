@@ -412,25 +412,29 @@
         },
 
         // hosting plan
+        // Plan
         {
-            "apiVersion": "2018-11-01",
-            "name": "[variables('hostingPlanName')]",
             "type": "Microsoft.Web/serverfarms",
-            "location": "[parameters('platform').region]",
-            "kind": "",
-            "tags": {},
-            "dependsOn": [],
-            "properties": {
-                "name": "[variables('hostingPlanName')]",
-                "workerSize": "3",
-                "workerSizeId": "3",
-                "numberOfWorkers": "1",
-                "maximumElasticWorkerCount": "20",
-                "zoneRedundant": false
-            },
+            "apiVersion": "2022-03-01",
+            "name": "[variables('hostingPlanName')]",
+            "location": "[resourceGroup().location]",
             "sku": {
-                "Tier": "Consumption",
-                "Name": "WS1"
+                "name": "WS1",
+                "tier": "Consumption"
+            },
+            "kind": "",
+            "properties": {
+                "perSiteScaling": false,
+                "elasticScaleEnabled": true,
+                "maximumElasticWorkerCount": 20,
+                "isSpot": false,
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0,
+                "zoneRedundant": false
+
             }
         },
         // logic app

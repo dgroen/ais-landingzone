@@ -411,7 +411,6 @@
 
         },
 
-        // hosting plan
         // Plan
         {
             "type": "Microsoft.Web/serverfarms",
@@ -419,10 +418,11 @@
             "name": "[variables('hostingPlanName')]",
             "location": "[resourceGroup().location]",
             "sku": {
-                "name": "WS1",
-                "tier": "Consumption"
+                "name": "EP1",
+                "tier": "ElasticPremium",
+                "family": "EP"
             },
-            "kind": "",
+            "kind": "elastic",
             "properties": {
                 "perSiteScaling": false,
                 "elasticScaleEnabled": true,

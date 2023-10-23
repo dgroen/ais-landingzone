@@ -21,33 +21,29 @@
     },
     "variables": {
 
-        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
+        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
     },
     "resources": [
-        // Plan
+        // hosting plan
         {
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2022-03-01",
+            "apiVersion": "2018-11-01",
             "name": "[variables('hostingPlanName')]",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "EP1",
-                "tier": "ElasticPremium",
-                "family": "EP"
-            },
-            "kind": "elastic",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('platform').region]",
+            "kind": "",
+            "tags": {},
+            "dependsOn": [],
             "properties": {
-                "perSiteScaling": false,
-                "elasticScaleEnabled": true,
-                "maximumElasticWorkerCount": 20,
-                "isSpot": false,
-                "reserved": false,
-                "isXenon": false,
-                "hyperV": false,
-                "targetWorkerCount": 0,
-                "targetWorkerSizeId": 0,
+                "name": "[variables('hostingPlanName')]",
+                "workerSize": "3",
+                "workerSizeId": "3",
+                "numberOfWorkers": "1",
+                "maximumElasticWorkerCount": "20",
                 "zoneRedundant": false
-
+            },
+            "sku": {
+                "Tier": "Consumption",
+                "Name": "WS1"
             }
         },
         // Function App

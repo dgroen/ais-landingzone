@@ -70,7 +70,7 @@
 
     "variables": {
         // Will reference the standard templates when using the "Deploy to Azure" button directly form the repository
-        "srcUri": "[deployment().properties.templateLink.uri]",
+        // "srcUri": "[deployment().properties.templateLink.uri]",
 
         // Makes it possible for people to local changes, execute the deployment from local files - but still keep the templateLink property / external template feature working
         // "srcUri": "https://raw.githubusercontent.com/Azure/Integration-Services-Landing-Zone-Accelerator/main/src/infra/scenario1/",
@@ -240,6 +240,41 @@
                 "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
             ]
         },
+ // Function  Apps
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-funcapp",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'func/funcApp.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "storage": {
+                        "value": "[variables('storage')]"
+                    },
+                    "funcApp": {
+                        "value": "[variables('funcApp')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
+            ]
+        },        
 
        
         // log analytics

@@ -156,99 +156,15 @@
     //    1) Storage account.
 
     "resources": [
-        // // Key vault 
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-keyvault",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'kv/keyVault.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "platform": {
-        //                 "value": "[variables('platform')]"
-        //             },
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             },
-        //             "keyVault": {
-        //                 "value": "[variables('keyVault')]"
-        //             }
-        //         }
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]"
-        //     ]
-        // },
-
-        // // VNET
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-vnet",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'vnet/vNet.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             }
-
-
-        //         }
-        //     }
-        // },
-        
-     
-        // // Logic Apps
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-logicapp",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'la/logicApp.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "platform": {
-        //                 "value": "[variables('platform')]"
-        //             },
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             },
-        //             "storage": {
-        //                 "value": "[variables('storage')]"
-        //             },
-        //             "logicApp": {
-        //                 "value": "[variables('logicApp')]"
-        //             },
-        //             "appInsights": {
-        //                 "value": "[variables('appInsights')]"
-        //             }
-        //         }
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
-        //     ]
-        // },
- // Function  Apps
+        // Key vault 
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "ais-funcapp",
+            "name": "ais-keyvault",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('srcUri'), 'func/funcApp.json')]",
+                    "uri": "[uri(variables('srcUri'), 'kv/keyVault.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -258,24 +174,37 @@
                     "vNet": {
                         "value": "[variables('vNet')]"
                     },
-                    "storage": {
-                        "value": "[variables('storage')]"
-                    },
-                    "funcApp": {
-                        "value": "[variables('funcApp')]"
-                    },
-                    "appInsights": {
-                        "value": "[variables('appInsights')]"
+                    "keyVault": {
+                        "value": "[variables('keyVault')]"
                     }
                 }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]"
+            ]
+        },
+
+        // VNET
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-vnet",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'vnet/vNet.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    }
+
+
+                }
             }
-            // ,
-            // "dependsOn": [
-            //     "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-            //     "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
-            //     "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
-            // ]
-        },        
+        },
+              
 
        
         // log analytics

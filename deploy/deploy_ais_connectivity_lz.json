@@ -19,35 +19,35 @@
         },
         "vnetAddressSpace": {
             "type": "string",
-            "defaultValue": "10.0.0.0/16",
+            "defaultValue": "10.10.0.0/16",
             "metadata": {
                 "description": "CIDR prefix for the VNet address space."
             }
         },
         "frontEndSubnet": {
             "type": "string",
-            "defaultValue": "10.0.1.0/24",
+            "defaultValue": "10.10.1.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the front end subnet."
             }
         },
         "backEndSubnet": {
             "type": "string",
-            "defaultValue": "10.0.2.0/24",
+            "defaultValue": "10.10.2.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the back end subnet."
             }
         },
         "privateLinkSubnet": {
             "type": "string",
-            "defaultValue": "10.0.10.0/24",
+            "defaultValue": "10.10.10.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the private link."
             }
         },
         "VMSubnet": {
             "type": "string",
-            "defaultValue": "10.0.20.0/24",
+            "defaultValue": "10.10.20.0/24",
             "metadata": {
                 "description": "CIDR address prefix for the IaaS VM's."
             }

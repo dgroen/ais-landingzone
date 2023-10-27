@@ -11,14 +11,14 @@
       },
       "vnetAddressPrefix": {
           "type": "string",
-          "defaultValue": "10.10.0.0/16",
+          "defaultValue": "10.20.0.0/16",
           "metadata": {
               "description": "Address space for the VNet."
           }
       },
       "gatewaySubnetPrefix": {
           "type": "string",
-          "defaultValue": "10.10.200.0/24",
+          "defaultValue": "10.20.200.0/24",
           "metadata": {
               "description": "The prefix for the GatewaySubnet where the VirtualNetworkGateway will be deployed. This must be at least /29."
           }
@@ -54,8 +54,8 @@
       "vpnClientCustomRoutes": {
           "type": "array",
           "defaultValue": [ 
-            "10.10.3.0/24",
-            "10.10.4.0/24"
+            "10.20.3.0/24",
+            "10.20.4.0/24"
         ],
           "metadata": {
               "description": "IP addres that was obtained in previous step. Custom routes IP address range specified by customer to set on Gateway and Vpn clients. This should be the Storage account IP. Get this by running nslookup <StorageAccountName>.file.core.windows.net"

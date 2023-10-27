@@ -21,7 +21,7 @@
     },
     "variables": {
 
-        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
+        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-we'')]"
     },
     "resources": [
         // Plan
@@ -103,17 +103,17 @@
         },
         {
             "location": "[parameters('platform').region]",
-            "name": "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+            "name": "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-we'')]",
             "type": "Microsoft.Network/privateEndpoints",
             "apiVersion": "2021-05-01",
             "properties": {
                 "subnet": {
                     "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('vnet').name, parameters('vnet').privateLink.name)]"
                 },
-                "customNetworkInterfaceName": "[concat('nic-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+                "customNetworkInterfaceName": "[concat('nic-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-we'')]",
                 "privateLinkServiceConnections": [
                     {
-                        "name": "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+                        "name": "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-we'')]",
                         "properties": {
                             "privateLinkServiceId": "[resourceId('Microsoft.Web/sites',parameters('funcApp').name)]",
                             "groupIds": [ "sites" ]
@@ -135,7 +135,7 @@
             "tags": {},
             "properties": {},
             "dependsOn": [
-                "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
+                "[concat('pep-',parameters('platform').systemPrefix,'-func-',parameters('platform').environment,'-we'')]"
             ]
 
         },

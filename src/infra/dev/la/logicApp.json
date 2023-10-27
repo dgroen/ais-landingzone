@@ -22,10 +22,10 @@
     },
     "functions": [],
     "variables": {
-        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+        "hostingPlanName": "[concat('plan-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-we'')]",
         "AzureFunctionsJobHost__extensionBundle__version": "[1.*, 2.0.0)",
-        "stgPepName": "[concat('pep-',parameters('platform').systemPrefix,'-stg-{0}-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
-        "stgPepNicName": "[concat('nic-',parameters('platform').systemPrefix,'-stg-{0}-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
+        "stgPepName": "[concat('pep-',parameters('platform').systemPrefix,'-stg-{0}-',parameters('platform').environment,'-we'')]",
+        "stgPepNicName": "[concat('nic-',parameters('platform').systemPrefix,'-stg-{0}-',parameters('platform').environment,'-we'')]"
 
     },
     "resources": [
@@ -374,17 +374,17 @@
         // logic app pep
         {
             "location": "[parameters('platform').region]",
-            "name": "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+            "name": "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-we'')]",
             "type": "Microsoft.Network/privateEndpoints",
             "apiVersion": "2021-05-01",
             "properties": {
                 "subnet": {
                     "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('vnet').name, parameters('vnet').privateLink.name)]"
                 },
-                "customNetworkInterfaceName": "[concat('nic-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+                "customNetworkInterfaceName": "[concat('nic-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-we'')]",
                 "privateLinkServiceConnections": [
                     {
-                        "name": "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-',parameters('platform').region,'-01')]",
+                        "name": "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-we'')]",
                         "properties": {
                             "privateLinkServiceId": "[resourceId('Microsoft.Web/sites',parameters('logicApp').name)]",
                             "groupIds": [ "sites" ]
@@ -406,7 +406,7 @@
             "tags": {},
             "properties": {},
             "dependsOn": [
-                "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-',parameters('platform').region,'-01')]"
+                "[concat('pep-',parameters('platform').systemPrefix,'-logic-',parameters('platform').environment,'-we'')]"
             ]
 
         },

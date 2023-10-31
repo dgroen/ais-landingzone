@@ -188,102 +188,102 @@
                 }
             }
         },
-        // // Service Bus
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-servicebus",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'sbus/serviceBus.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "platform": {
-        //                 "value": "[variables('platform')]"
-        //             },
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             },
-        //             "serviceBus": {
-        //                 "value": "[variables('serviceBus')]"
-        //             }
-        //         }
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]"
-        //     ]
-        // },
-        // // Logic Apps
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-logicapp",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'la/logicApp.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "platform": {
-        //                 "value": "[variables('platform')]"
-        //             },
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             },
-        //             "storage": {
-        //                 "value": "[variables('storage')]"
-        //             },
-        //             "logicApp": {
-        //                 "value": "[variables('logicApp')]"
-        //             },
-        //             "appInsights": {
-        //                 "value": "[variables('appInsights')]"
-        //             }
-        //         }
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
-        //     ]
-        // },
-        // // Function  Apps
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2021-04-01",
-        //     "name": "ais-funcapp",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "[uri(variables('srcUri'), 'func/funcApp.json')]",
-        //             "contentVersion": "1.0.0.0"
-        //         },
-        //         "parameters": {
-        //             "platform": {
-        //                 "value": "[variables('platform')]"
-        //             },
-        //             "vNet": {
-        //                 "value": "[variables('vNet')]"
-        //             },
-        //             "storage": {
-        //                 "value": "[variables('storage')]"
-        //             },
-        //             "funcApp": {
-        //                 "value": "[variables('funcApp')]"
-        //             },
-        //             "appInsights": {
-        //                 "value": "[variables('appInsights')]"
-        //             }
-        //         }
-        //     },
-        //     "dependsOn": [
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
-        //         "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
-        //     ]
-        // },
+        // Service Bus
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-servicebus",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'sbus/serviceBus.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "serviceBus": {
+                        "value": "[variables('serviceBus')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]"
+            ]
+        },
+        // Logic Apps
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-logicapp",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'la/logicApp.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "storage": {
+                        "value": "[variables('storage')]"
+                    },
+                    "logicApp": {
+                        "value": "[variables('logicApp')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]"
+            ]
+        },
+        // Function  Apps
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "ais-funcapp",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[uri(variables('srcUri'), 'func/funcApp.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "platform": {
+                        "value": "[variables('platform')]"
+                    },
+                    "vNet": {
+                        "value": "[variables('vNet')]"
+                    },
+                    "storage": {
+                        "value": "[variables('storage')]"
+                    },
+                    "funcApp": {
+                        "value": "[variables('funcApp')]"
+                    },
+                    "appInsights": {
+                        "value": "[variables('appInsights')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'ais-vnet')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-app-insights')]",
+                "[resourceId('Microsoft.Resources/deployments', 'ais-logicapp')]"
+            ]
+        },
         // Data Factory
         {
             "type": "Microsoft.Resources/deployments",

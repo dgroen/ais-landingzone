@@ -14,8 +14,8 @@
 
     },
     "variables": {
-        "pepName": "[concat('pep-',parameters('platform').systemPrefix,'-kv-',parameters('platform').environment,'-we'')]",
-        "pepNicName": "[concat('nic-',parameters('platform').systemPrefix,'-kv-',parameters('platform').environment,'-we'')]"
+        "pepName": "[concat('pep-',parameters('platform').systemPrefix,'-kv-',parameters('platform').environment,'-we')]",
+        "pepNicName": "[concat('nic-',parameters('platform').systemPrefix,'-kv-',parameters('platform').environment,'-we')]"
 
     },
     "resources": [

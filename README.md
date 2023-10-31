@@ -24,3 +24,8 @@
     $ az deployment group create --resource-group rg-ais-<env>-001 --template-file deploy_ais_lz_<env>.json
 
 az deployment group create --resource-group rg-ais-connectivity --template-file deploy_ais_connectivity_lz.json
+
+
+https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke?tabs=portal
+azureadmin
+4ZureAdminPass!
